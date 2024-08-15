@@ -26,13 +26,12 @@ class ShortUrl(models.Model):
     def save(self, *args, **kwargs):
         if not self.short_url:
             while True:
-                short_url = ''.join(random.choices(
+                self.short_url = ''.join(random.choices(
                     settings.ALPHABET,
                     k=settings.SHORT_URL_LENGTH
                 ))
-                if not ShortUrl.objects.filter(short_url=short_url).exists():
+                if not ShortUrl.objects.filter(short_url=self.short_url).exists():
                     break
-        super().save(*args, **kwargs)
 
         super().save(*args, **kwargs)
 
