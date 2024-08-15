@@ -8,7 +8,7 @@ from django.conf import settings
 
 
 class ShortUrl(models.Model):
-    original_url = models.URLField()
+    original_url = models.URLField(unique=True)
     short_url = models.CharField(max_length=10,
                                  unique=True,
                                  blank=True)
