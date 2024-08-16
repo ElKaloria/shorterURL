@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 ALPHABET = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890'
 SHORT_URL_LENGTH = 10
+
 LOGIN_REDIRECT_URL = '/'
 # Application definition
 

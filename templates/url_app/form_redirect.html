@@ -6,6 +6,9 @@
 </head>
 <body>
     <h3> Your short url</h3>
-    <a href="http://localhost:8080/{{short_url}}">http://localhost:8080/{{short_url}}</a>
+    {% with short_url as short_url %}
+        <a href="http://localhost:8000/UrlShort/{{short_url}}">
+            http://localhost:8080/UrlShort/{{short_url}}</a>
+    {% endwith %}
 </body>
 </html>
