@@ -37,22 +37,22 @@ def form_view(request):
     return render(request, 'url_app/index.html', {'form': form})
 
 
+class UserUrlList(ListView):
+    model = ShortUrl
+    template_name = 'url_app/list_user.html'
+    paginate_by = 10
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(UserUrlList, self).get_context_data(**kwargs)
+        user = self.kwargs.get('username')
+        context['users'] = User.objects.all()
+        context['user_param'] = user
+        context['urls'] = ShortUrl.objects.filter(user__username__exact=user) if user else None
+        return context
+
+
 class URLList(ListView):
     model = ShortUrl
     template_name = 'url_app/list_url.html'
     context_object_name = 'urls'
-
-    def get_queryset(self):
-        user = self.kwargs.get('username')
-        return ShortUrl.objects.filter(user__username__exact=user)
-
-
-class UserList(ListView):
-    model = User
-    template_name = 'url_app/list_user.html'
-    context_object_name = 'users'
-
-    def get_queryset(self):
-        return User.objects.all()
-
-
+    paginate_by = 10
