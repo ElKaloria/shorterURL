@@ -8,5 +8,5 @@ class UrlForm(models.ModelForm):
         model = ShortUrl
         fields = ['original_url']
         labels = {
-            'original_url': 'Your url',
+            'original_url': 'Ваш url-адрес',
         }
