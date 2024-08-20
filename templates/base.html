@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        
+    </div>
+    <div id="subheader">
+        {% if user.is_authenticated %}
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <p><input type="submit" value="Выйти из аккаунта"></p>
+        </form>
+        {% endif %}
+        <div class="subheader-list">
+            
+        </div>
+        <a style="margin-left: 10px" href="{% url 'short_url_app:UserList' %}">
+            <input type="submit" value="Список пользователей"></a>
+    
+        <a style="margin-left: 10px" href="{% url 'short_url_app:URLList' %}">
+                <input type="submit" value="Список зарегистрированных url"></a>
+    
+        <a style="margin-left: 10px" href="{% url 'short_url_app:form_view' %}">
+                <input type="submit" value="Зарегистрировать url"></a>
+    </div>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
