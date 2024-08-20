@@ -1,13 +1,26 @@
 <!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    {% for user in users %}
-        
-        <h3><a href="{% url 'short_url_app:URLList' username=user %}">{{ user }}</a></h3>
-    {% endfor %}
+{% block content %}
+    
+    <div id="main" class="url-list">
+        {% for user_item in users %}
+            <ul>
+                <li>
+                <a href="http://localhost:8000/list_user/{{ user_item }}">{{ user_item }}</a>
+                </li>
+                {% if user_item.username == user_param %}
+                    {% include "url_app/list_user_url.html" with urls=urls %}
+                {% endif %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}
 </body>
 </html>

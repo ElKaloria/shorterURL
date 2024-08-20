@@ -1,20 +1,19 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>URLShortener</title>
 </head>
 <body>
-    {% if user.is_authenticated %}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
+{% block content %}
+    <div>
+        <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+          <p><input type="submit" value="Сократить"></p>
         </form>
-    {% endif %}
-   <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    </div>
+{% endblock %}
 </body>
 </html>

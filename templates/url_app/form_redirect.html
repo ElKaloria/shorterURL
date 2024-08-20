@@ -1,14 +1,21 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h3> Your short url</h3>
-    {% with short_url as short_url %}
-        <a href="http://localhost:8000/{{short_url}}">
-            http://localhost:8000/{{short_url}}</a>
-    {% endwith %}
+    {% block content %}
+        <h3> Ваш короткий url.</h3>
+        {% with short_url as short_url %}
+            <a href="http://localhost:8000/{{short_url}}">
+                http://localhost:8000/{{short_url}}</a>
+        {% endwith %}
+        <p>
+            <a href="{% url "short_url_app:form_view" %}">Зарегистрировать новый url.</a>
+        </p>
+    {% endblock %}
+
 </body>
 </html>
