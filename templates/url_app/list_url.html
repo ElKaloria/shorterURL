@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for url in urls %}
+        <ul>
+            <li>
+                {{ url }}
+                <p><a href="http://localhost:8000/{{ url.short_url }}">
+                    http://localhost:8000/{{ url.short_url }}</a></p>
+            </li>
+        </ul>
+    {% endfor %}
+</body>
+</html>
