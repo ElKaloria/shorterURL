@@ -28,8 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 ALPHABET = 'ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890'
-SHORT_URL_LENGTH = 10
-
+SHORT_URL_LENGTH = 6
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 # Application definition
 
