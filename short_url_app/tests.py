@@ -28,6 +28,10 @@ class TestRedirection(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, 'https://ya.ru/')
 
+    def test_wrong_url(self):
+        response = self.client.get(reverse('short_url_app:redirect_to_original_url', kwargs={'short_url': 'wrong'}))
+        self.assertEqual(response.content, b'This url does not exist')
+
     def test_response_counter(self):
         """
         Тестируем счетчик запросов токена
@@ -87,11 +91,19 @@ class FormViewTestCase(TestCase):
 
 
 class UserUrlListTestCase(TestCase):
+    """
+    Тестируем UserUrlList view,
+    для получения списка зарегистрированных url каждым отдельным пользователем.
+    """
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.short_url = ShortUrl.objects.create(original_url='http://example.com', user=self.user)
 
     def test_get_context_data(self):
+        """
+        Тестируем GET запрос с пользователем
+        :return:
+        """
         response = self.client.get(
             reverse('short_url_app:UserUrlList', kwargs={'username': self.user.username}))
         self.assertEqual(response.status_code, 200)
@@ -101,6 +113,10 @@ class UserUrlListTestCase(TestCase):
         self.assertEqual(response.context['urls'].first(), self.short_url)
 
     def test_get_context_data_with_no_user(self):
+        """
+        Тестируем GET запрос без указанного пользователя
+        :return:
+        """
         response = self.client.get(reverse('short_url_app:UserList'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['users'].count(), 1)
@@ -108,6 +124,10 @@ class UserUrlListTestCase(TestCase):
         self.assertEqual(response.context['urls'], None)
 
     def test_get_context_data_with_no_urls(self):
+        """
+        Тестируем GET запрос без url у пользователя
+        :return:
+        """
         self.short_url.delete()
         response = self.client.get(
             reverse('short_url_app:UserUrlList', kwargs={'username': self.user.username}))
