@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView
 from .forms import UrlForm
 from .models import ShortUrl
@@ -9,6 +10,8 @@ from .utils import get_original_url, original_url_exist, get_short_url
 
 
 # Create your views here.
+
+@cache_page(60 * 3)
 def redirect_to_original_url(request, short_url):
     try:
         original_url = get_original_url(short_url)
@@ -49,6 +52,7 @@ class UserUrlList(ListView):
         context['user_param'] = user
         context['urls'] = ShortUrl.objects.filter(user__username__exact=user) if user else None
         return context
+
 
 
 class URLList(ListView):
